@@ -1,9 +1,6 @@
-version: 2.1
-
 jobs:
   build-and-test:
-    docker:
-      - image: cimg/python:3.8  # Możesz zmienić na inną wersję, np. node, jeżeli używasz innego języka
+    machine: true
     steps:
       - checkout
       - run:
@@ -18,8 +15,3 @@ jobs:
       - run:
           name: Push Docker image
           command: make docker_push
-
-workflows:
-  basic:
-    jobs:
-      - build-and-test
