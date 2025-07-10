@@ -1,15 +1,24 @@
 version: 2.1
+
 jobs:
   build-and-test:
-    machine:
-      image: ubuntu-2204:2024.11.1
-      docker_layer_caching: true
+    docker:
+      - image: cimg/python:3.8  # Możesz zmienić na inną wersję, np. node, jeżeli używasz innego języka
     steps:
       - checkout
-      - run: make deps
-      - run: make test
-      - run: make docker_build
-      - run: make docker_push
+      - run:
+          name: Install dependencies
+          command: make deps
+      - run:
+          name: Run tests
+          command: make test
+      - run:
+          name: Build Docker image
+          command: make docker_build
+      - run:
+          name: Push Docker image
+          command: make docker_push
+
 workflows:
   basic:
     jobs:
